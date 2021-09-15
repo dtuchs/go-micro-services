@@ -19,6 +19,8 @@ services:
       - geo
       - rate
       - jaeger
+    ports:
+      - "8091:8080"
   profile:
     build: .
     entrypoint: go-micro-services profile
@@ -26,16 +28,22 @@ services:
       - geo
       - rate
       - jaeger
+    ports:
+      - "8092:8080"
   geo:
     build: .
     entrypoint: go-micro-services geo
     links:
       - jaeger
+    ports:
+      - "8093:8080"
   rate:
     build: .
     entrypoint: go-micro-services rate
     links:
       - jaeger
+    ports:
+      - "8094:8080"
   jaeger:
     image: jaegertracing/all-in-one:latest
     ports:
